@@ -1,0 +1,33 @@
+
+.my-select {
+  height: auto;
+}
+
+.main {
+  margin-top: 2rem;
+}
+
+.box {
+  position: relative;
+  border: 1px solid #cdcdcd;
+  border-radius: 6px;
+  background-color: #d3d3d3;
+  padding: 2rem;
+  &-action {
+    position: absolute;
+    top: 2rem;
+    right: 2rem
+  }
+  &-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+  }
+  &-content {
+    > span {
+      display: block;
+      margin-bottom: 7px;
+    }
+  }
+}

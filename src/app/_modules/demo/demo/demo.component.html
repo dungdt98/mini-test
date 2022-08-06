@@ -1,0 +1,104 @@
+<div class="container">
+  <div class="my-5 text-center d-flex">
+    <button class="my-btn my-btn-primary mx-3">Test component</button>
+    <button class="my-btn my-btn-primary my-btn-primary--small mx-3">Thêm</button>
+    <button class="my-btn my-btn-danger mx-3" disabled>Xóa</button>
+    <button class="my-btn my-btn-cancel mx-3">Hủy</button>
+  </div>
+
+  <div class="p-8">
+
+  </div>
+
+  <div class="bg-white p-8 h-full">
+    <!-- start header -->
+    <div class="d-flex algin-items-center justify-content-between flex-wrap">
+      <h3 class="title-compo-global mb-3">Bảng</h3>
+      <div class="filter d-flex flex-wrap algin-items-center">
+        <select name="status" id="" [(ngModel)]="status" class="my-select" (ngModelChange)="filter()">
+          <option [value]="null">Trạng thái</option>
+          <ng-container *ngFor="let status of arrStatus">
+            <option [value]="status.code">{{status.name}}</option>
+          </ng-container>
+        </select>
+
+        <div class="my-input-search mx-4">
+          <nz-input-group [nzSuffix]="suffixIconSearch">
+            <input type="text" name="input-search" nz-input placeholder="Tìm kiếm" #searchInput
+              (keydown)="search($event, searchInput.value)" />
+          </nz-input-group>
+          <ng-template #suffixIconSearch>
+            <em nz-icon nzType="search"></em>
+          </ng-template>
+        </div>
+        <button class="my-btn my-btn-primary my-btn-primary--small" (click)="create()" name="btn-create">
+          Thêm mới
+        </button>
+      </div>
+    </div>
+    <!-- end header -->
+
+    <!-- content -->
+    <div class="mt-12">
+      <table class="table-global w-full">
+        <caption></caption>
+        <thead>
+          <th style="width: 20%;" class="text-header-table"> Tên</th>
+          <th style="width: 12%;" class="text-header-table"> Mã </th>
+          <th style="width: 20%;" class="text-header-table"> Mô tả </th>
+          <th style="width: 15%;" class="text-header-table text-center"> Hành động </th>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let item of dataTable; let i=index">
+            <tr>
+              <td class="text-content-table">
+                <span class="text-link fw-500 cursor-pointer">Lorem</span>
+              </td>
+              <td>
+                123
+              </td>
+              <td>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem aliquid dolor iure dolores
+                repudiandae eveniet quos beatae, explicabo libero sit! Amet quod voluptate, sed nisi beatae dignissimos
+                similique maiores? Ex.
+              </td>
+              <td class="text-center">
+                <div class="d-flex justify-content-center">
+                  <button nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click"
+                    class="my-btn-open-drop-menu d-flex align-items-center" name="btn-open-menu">
+                    Hành động
+                  </button>
+                </div>
+                <nz-dropdown-menu #menu="nzDropdownMenu" class="my-drop-menu">
+                  <ul nz-menu>
+                    <li nz-menu-item class="d-flex align-items-center my-item-drop-menu" name="btn-update-role">
+                      Cập nhật
+                    </li>
+                    <li nz-menu-item class="d-flex align-items-center my-item-drop-menu text-danger" name="btn-delete">
+                      Xóa
+                    </li>
+                  </ul>
+                </nz-dropdown-menu>
+              </td>
+            </tr>
+          </ng-container>
+          <tr *ngIf="dataTable?.length == 0 || !dataTable">
+            <td class="text-no-data" colspan="6">Không có dữ liệu</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <app-pagination [pageSize]="pageSize" [pageIndex]="pageIndex" [collectionSize]="collectionSize"
+        [sizeOption]="sizeOption" (paginationChange)="paginationChange($event)">
+      </app-pagination>
+      <!-- *ngIf="collectionSize > sizeOption[0]" -->
+    </div>
+    <!-- end content -->
+  </div>
+
+  <div class="spinner" *ngIf="isLoading">
+    <app-loading></app-loading>
+  </div>
+
+
+</div>

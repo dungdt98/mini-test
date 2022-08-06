@@ -1,0 +1,8 @@
+<div class="my-date-picker">
+  <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker"
+    (ngModelChange)="selectDate($event)" [ngModelOptions]="{standalone: true}" />
+  <span class="btn-outline-secondary calendar btn-canlendar" (click)="d.toggle()" type="button">
+    <img src="assets/images/svg/calendar-solid.svg" alt="">
+  </span>
+</div>
