@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListTaskComponent } from './list-task.component';
+import { ModalDeleteStudentComponent } from './modal-delete-student.component';
 
-describe('ListTaskComponent', () => {
-  let component: ListTaskComponent;
-  let fixture: ComponentFixture<ListTaskComponent>;
+describe('ModalDeleteStudentComponent', () => {
+  let component: ModalDeleteStudentComponent;
+  let fixture: ComponentFixture<ModalDeleteStudentComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListTaskComponent ]
+      declarations: [ ModalDeleteStudentComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListTaskComponent);
+    fixture = TestBed.createComponent(ModalDeleteStudentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

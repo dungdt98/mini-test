@@ -1,0 +1,110 @@
+<div class="modal-header">
+  <h5 class="title-modal-global">{{dataModal?.titleModal}}</h5>
+  <button type="button" class="close modal-btn-close" data-dismiss="modal" (click)="closeModal('dismiss')"
+    name="icon-close" [hidden]="!dataModal?.isHiddenBtnClose">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form action="" [formGroup]="formStudent">
+    <div class="row">
+      <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="preview-image">
+          <img [src]="avatarUser" alt="" class="content-image-priview">
+          <span name="btn-change-avatar" class="btn-click-change-avatar fs-11 fw-500" (click)="fileInputAvatar.click()">
+            Chọn ảnh để tải lên
+          </span>
+        </div>
+        <input #fileInputAvatar type="file" name="fileInputAvatar" class="d-none"
+          accept="image/png, image/jpeg image/jpg" (change)="onChangeFileInputAvatar($event)">
+      </div>
+      <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9">
+        <div class="row mb-3">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-12">
+            <div class="form-group my-form-group">
+              <label for="name" class="fw-600">Họ và tên <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên" autocomplete="off"
+                formControlName="name">
+            </div>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'Không được để trống',
+              control: formStudent.controls['name']
+              }">
+            </ng-container>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'maxlength',
+              message: 'Tối đa 50 kí tự',
+              control: formStudent.controls['name']
+              }">
+            </ng-container>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-12 col-md-12 col-lg-12 col-xl-12 mb-6">
+            <div class="form-group my-form-group">
+              <label for="duedate" class="fw-600">Ngày sinh</label>
+              <div>
+                <app-single-date-picker (dateSelect)="getDateSelect($event)" [date]="date"></app-single-date-picker>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-12 col-md-12 col-lg-12 col-xl-12 mb-6">
+            <div class="form-group my-form-group">
+              <label for="gender" class="fw-600">Giới tính</label>
+              <input type="checkbox" [value]="1" formControlName="gender" style=" margin-left: 7px;"> Nam
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-12 col-md-12 col-lg-12 col-xl-12 mb-6">
+            <div class="form-group my-form-group">
+              <label for="class" class="fw-600">Lớp học <span class="text-danger">*</span></label>
+              <select name="class" id="class" class="w-full" formControlName="class">
+                <option [value]="null">Chọn lớp</option>
+                <ng-container *ngFor="let item of arrClasses">
+                  <option [value]="item?.id">{{item?.fullname}}</option>
+                </ng-container>
+              </select>
+            </div>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'notNull',
+              message: 'Chưa chọn lớp',
+              control: formStudent.controls['class']
+              }">
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="errMess != ''">
+          <div class="col-12">
+            <span class="text-danger">{{errMess}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- error -->
+    <ng-template #formError let-control="control" let-message="message" let-validation="validation">
+      <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+        <div class="fv-plugins-message-container">
+          <span role="alert">
+            <div class="err-form text-danger">
+              <img src="assets/images/svg/icon-false.svg" alt="">
+              <span>&nbsp;{{ message }}</span>
+            </div>
+          </span>
+        </div>
+      </ng-container>
+    </ng-template>
+  </form>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="my-btn my-btn-cancel" data-dismiss="modal" name="btn-cancel"
+    (click)="closeModal('cancel')">{{dataModal?.btnCancel}}</button>
+  <button type="button" class="my-btn my-btn-primary my-btn-primary--small" name="btn-accept"
+    (click)="submit(formStudent.value)" [disabled]="!formStudent.valid">{{dataModal?.btnAccept}}</button>
+</div>

@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './_core/core.module';
 import { DefaultLayoutComponent } from './_layouts/default-layout/default-layout.component';
 
-fdescribe('AppComponent', () => {
+describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -26,19 +26,4 @@ fdescribe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
-
-  // it(`should have as title 'mini-test'`, () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   const app = fixture.componentInstance;
-  //   expect(app.title).toEqual('mini-test');
-  // });
-
-  // it('should render title', () => {
-  //   const fixture = TestBed.createComponent(AppComponent);
-  //   fixture.detectChanges();
-  //   const compiled = fixture.nativeElement as HTMLElement;
-  //   expect(compiled.querySelector('.content span')?.textContent).toContain(
-  //     'mini-test app is running!'
-  //   );
-  // });
 });

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalConfirmTaskComponent } from './modal-confirm-task.component';
+import { ListStudentComponent } from './list-student.component';
 
-describe('ModalConfirmTaskComponent', () => {
-  let component: ModalConfirmTaskComponent;
-  let fixture: ComponentFixture<ModalConfirmTaskComponent>;
+describe('ListStudentComponent', () => {
+  let component: ListStudentComponent;
+  let fixture: ComponentFixture<ListStudentComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModalConfirmTaskComponent ]
+      declarations: [ ListStudentComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalConfirmTaskComponent);
+    fixture = TestBed.createComponent(ListStudentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

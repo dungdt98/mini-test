@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://SECRET.mockapi.io/',
+  // apiUrl: 'https://SECRET.mockapi.io/',
+  apiUrl: 'https://test-t7.k8s-dev.omt.vn',
 };
 
 /*

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-single-date-picker',
@@ -7,7 +7,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 })
 export class SingleDatePickerComponent {
   minDate = { day: 9, month: 4, year: 2022 };
-  date!: NgbDateStruct;
+  @Input() date!: NgbDateStruct;
   time = {hour: 0, minute: 0};
   @Output() dateSelect = new EventEmitter<any>();
 
