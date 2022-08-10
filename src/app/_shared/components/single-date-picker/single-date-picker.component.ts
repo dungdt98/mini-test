@@ -12,8 +12,6 @@ export class SingleDatePickerComponent {
   @Output() dateSelect = new EventEmitter<any>();
 
   selectDate(event: any) {
-    console.log(this.date);
-
     this.dateSelect.emit({
       date: this.date,
       time: this.time

@@ -11,7 +11,11 @@ export class StudentService {
 
   // 1. get list method
   getList(pageIndex: number, classId: string) {
-    return this.http.get(`${environment.apiUrl}/api/students?page=${pageIndex}&classId=${classId}`);
+    if(!classId || classId == 'null' || classId == '') {
+       return this.http.get(`${environment.apiUrl}/api/students?page=${pageIndex}`);
+    }
+    else return this.http.get(`${environment.apiUrl}/api/students?page=${pageIndex}&classId=${classId}`);
+
   }
 
   // 2. create method

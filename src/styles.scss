@@ -121,9 +121,14 @@ body {
 .modal-btn-close {
   outline: none;
   border: none;
-  border-radius: 10px;
+  border-radius: 50%;
   background: #556ee6;
-
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   span {
     color: #fff;
   }
@@ -139,6 +144,7 @@ body {
   padding-right: 2rem;
   padding-left: 2rem;
   padding-bottom: 2rem;
+  padding-top: 1.4rem;
 
   .my-btn-cancel {
     margin-right: 7px;
@@ -232,6 +238,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.3rem;
+  padding: calc(0.6rem + 1px) calc(1.9rem + 1px) !important;
+  min-width: 7rem;
 }
 
 .my-btn:focus {
@@ -245,6 +254,7 @@ body {
   color: #fff;
   font-size: 1.4rem;
   padding: calc(0.8rem + 1px) calc(2.1rem + 1px) !important;
+  min-width: 2rem;
 
   img {
     margin-right: 4px;
@@ -277,9 +287,8 @@ body {
 .my-btn-danger {
   background: #f64e60;
   border-radius: 4px;
-  font-size: 1.2rem;
   color: #fff;
-  padding: calc(0.5rem + 1px) calc(1.9rem + 1px) !important;
+  padding: calc(0.6rem + 1px) calc(1.9rem + 1px) !important;
 
   img {
     margin-right: 4px;

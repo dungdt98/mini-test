@@ -1,6 +1,7 @@
 .my-select {
   height: auto;
   margin-right: 1rem;
+  max-height: unset;
 }
 
 .box {
@@ -8,13 +9,29 @@
   margin-bottom: 1.5rem;
   border-radius: 5px;
   padding: 1.5rem;
+  font-size: 1.4rem;
   .avatar {
-    width: 10rem;
-    height: 10rem;
-    margin-right: 15px;
+    max-width: 12rem;
+    max-height: 12rem;
+    min-width: 8rem;
+    min-height: 8rem;
+    margin: 0 auto;
     img {
       width: 100%;
       object-fit: cover;
     }
   }
+}
+
+.my-btn-danger {
+  border-radius: 6px;
+}
+
+.btn-view-more {
+  display: inline-flex;
+  border-radius: 6px;
+}
+
+.my-select {
+  min-width: 25rem;
 }

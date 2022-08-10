@@ -33,8 +33,8 @@
               }">
             </ng-container>
             <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-              validation: 'maxlength',
-              message: 'Tối đa 50 kí tự',
+              validation: 'pattern',
+              message: 'Tên cho phép nhập ký tự chữ thường, chữ hoa, chữ số và bắt đầu bằng ký tự chữ',
               control: formStudent.controls['name']
               }">
             </ng-container>
@@ -54,7 +54,8 @@
           <div class="col-12 col-md-12 col-lg-12 col-xl-12 mb-6">
             <div class="form-group my-form-group">
               <label for="gender" class="fw-600">Giới tính</label>
-              <input type="checkbox" [value]="1" formControlName="gender" style=" margin-left: 7px;"> Nam
+              <input type="checkbox" formControlName="gender" [checked]="dataFromParent.gender == 1"
+                style=" margin-left: 7px;"> Nam
             </div>
           </div>
         </div>

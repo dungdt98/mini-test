@@ -1,11 +1,11 @@
-import { Observable, Subscriber } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Observable, Subscriber } from 'rxjs';
+import { Base64Service } from 'src/app/_services/base64.service';
 import { StudentService } from 'src/app/_services/student.service';
 import { ValidatorNotNull } from 'src/app/_services/validator-custom.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Base64Service } from 'src/app/_services/base64.service';
+import { REGEX_FULL_NAME } from 'src/app/_shared/utils/constant';
 
 @Component({
   selector: 'app-modal-form-student',
@@ -19,22 +19,17 @@ export class ModalFormStudentComponent implements OnInit {
   formStudent!: FormGroup;
   arrClasses: any = [];
   date!: NgbDateStruct;
-  time: any;
   avatarUser = 'https://robohash.org/7IZ.png?set=set3';
-  urlImage!: SafeResourceUrl;
-  dataBase64Image = null;
   errMess = '';
 
   constructor(
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private studentService: StudentService,
-    private sanitizer: DomSanitizer,
     private base64: Base64Service
   ) {}
 
   ngOnInit(): void {
-    console.log(this.dataModal);
     this.dataFromParent = this.dataModal.dataFromParent;
     this.initForm();
     this.getListClasses();
@@ -46,11 +41,10 @@ export class ModalFormStudentComponent implements OnInit {
         this.dataFromParent.nameForm == 'update'
           ? this.dataFromParent?.name
           : '',
-        [Validators.required],
+        [Validators.required, Validators.pattern(REGEX_FULL_NAME)],
       ],
       gender: this.dataFromParent.nameForm == 'update'
-      ? this.dataFromParent?.gender
-      : 1,
+      ? this.convertGender(this.dataFromParent?.gender) : false,
       class: [
         this.dataFromParent.nameForm == 'update'
           ? this.dataFromParent?.classId
@@ -60,17 +54,7 @@ export class ModalFormStudentComponent implements OnInit {
     });
 
     if(this.dataFromParent.nameForm == 'update' && this.dataFromParent.DayOfBirth && this.dataFromParent.DayOfBirth != '')  {
-      let indexDay = this.dataFromParent.DayOfBirth.indexOf('/')
-      let indexMonth = this.dataFromParent.DayOfBirth.indexOf('/', (indexDay + 1));
-      let indexYear = this.dataFromParent.DayOfBirth.lastIndexOf('/')
-      let day = this.dataFromParent.DayOfBirth.slice(0, indexDay);
-      let month = this.dataFromParent.DayOfBirth.slice(indexDay+1, indexMonth);
-      let year = this.dataFromParent.DayOfBirth.slice(indexMonth+1);
-      this.date = {
-        year: Number(year),
-        month: Number(month),
-        day: Number(day)
-      }
+     this.date = this.formatDateToDateStruct(this.dataFromParent.DayOfBirth);
     }
   }
 
@@ -83,13 +67,7 @@ export class ModalFormStudentComponent implements OnInit {
   }
 
   submit(valueForm: any) {
-    let month = '';
-    let dateOfBirth = '';
-    if (this.date) {
-      if (this.date.month < 10) month = '0' + this.date.month;
-      dateOfBirth = this.date.day + '/' + month + '/' + this.date.year;
-    }
-
+    let dateOfBirth = this.formatDateToString(this.date);
     let dataInput = {
       Fullname: valueForm.name,
       ClassId: valueForm.class,
@@ -125,23 +103,46 @@ export class ModalFormStudentComponent implements OnInit {
         }
       );
     }
+  }
 
+  convertGender(gender: string) {
+    return gender == 'Male' ? true : false;
+  }
 
+  formatDateToString(date: NgbDateStruct) {
+    let day = '';
+    let month = '';
+    let dateOfBirth = '';
+    if (date) {
+      if (date.month < 10) month = '0' + this.date.month;
+      if (date.day < 10) day = '0' + date.day;
+      dateOfBirth = day + '/' + month + '/' + date.year;
+    }
+    return dateOfBirth;
+  }
+
+  formatDateToDateStruct(date: string) {
+    let indexDay = date.indexOf('/')
+    let indexMonth = date.indexOf('/', (indexDay + 1));
+    let day = date.slice(0, indexDay);
+    let month = date.slice(indexDay+1, indexMonth);
+    let year = date.slice(indexMonth+1);
+    return {
+      year: Number(year),
+      month: Number(month),
+      day: Number(day)
+    }
   }
 
   getDateSelect(event: any) {
-    console.log(event);
     this.date = event.date;
   }
 
-  myimage!: Observable<any>;
   onChangeFileInputAvatar(event: any): void {
-    console.log(event);
-
-    let allowExtentionImage = ['png', 'jpg', 'jpeg'];
+    let allowExtensionImage = ['png', 'jpg', 'jpeg'];
     if (event.target.files.length > 0) {
       const file = event?.target.files[0];
-      if (!allowExtentionImage.includes(this.getExstendsion(file?.type))) {
+      if (!allowExtensionImage.includes(this.getExtension(file?.type))) {
         alert("Ảnh không đúng định dạng");
         return;
       }
@@ -154,7 +155,7 @@ export class ModalFormStudentComponent implements OnInit {
     }
   }
 
-  getExstendsion(image: any) {
+  getExtension(image: any) {
     let endingFile = '';
     if (image.endsWith('jpg') || image.endsWith('jpeg')) {
       endingFile =  'jpg';

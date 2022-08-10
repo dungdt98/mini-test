@@ -1,8 +1,8 @@
 <div class="container">
   <div class="bg-white h-full" style="padding: 4rem 2rem;">
     <!-- start header -->
-    <div>
-      <h3 class="title-compo-global mb-3">Danh sách</h3>
+    <div class="d-flex align-items-center justify-content-between">
+      <h3 class="title-compo-global mb-0">Danh sách</h3>
       <div class="filter d-flex flex-wrap algin-items-center">
         <select name="status" id="" [(ngModel)]="classId" class="my-select" (ngModelChange)="filter()">
           <option [value]="null">Chọn lớp</option>
@@ -11,7 +11,7 @@
           </ng-container>
         </select>
 
-        <button class="my-btn my-btn-primary my-btn-primary--small" (click)="create()" name="btn-create">
+        <button class="my-btn my-btn-primary" (click)="create()" name="btn-create">
           Thêm mới
         </button>
       </div>
@@ -19,43 +19,58 @@
     <!-- end header -->
 
     <!-- content -->
-    <div style="margin-top: 3rem;">
-      <ng-container *ngFor="let item of initialArrStudents; let i=index">
-        <div class="box">
-          <div class="row">
-            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
-              <div class="d-flex">
-                <div style="width: 10%;">{{i + 1}}</div>
-                <div class="d-flex flex-column">
-                  <button class="btn btn-primay" (click)="update(item)">
-                    Sửa
-                  </button>
-                  <button class="btn btn-danger" (click)="delete(item)">
-                    Xóa
-                  </button>
+    <div style="margin-top: 2.5rem;">
+      <div class="row">
+        <ng-container *ngFor="let item of initialArrStudents; let i=index">
+          <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="box">
+              <div class="row">
+                <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
+                  <div class="avatar">
+                    <img src="{{item.Avatar || 'https://robohash.org/7IZ.png?set=set3'}}" alt="">
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-7 col-xl-8">
+                  <div class="box-main">
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <span>{{item.firstName + ' ' + item.lastName}}</span>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <span>{{item.gender}}</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <span>{{item.DayOfBirth}}</span>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <span>{{item.className}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                  <div class="d-flex flex-wrap">
+                    <button class="my-btn my-btn-primary mx-2 my-1" (click)="update(item)">
+                      Sửa
+                    </button>
+                    <button class="my-btn my-btn-danger mx-2 my-1" (click)="delete(item)">
+                      Xóa
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9">
-              <div class="d-flex algin-items-center">
-                <div class="avatar">
-                  <img src="{{item.Avatar || 'https://robohash.org/7IZ.png?set=set3'}}" alt="">
-                </div>
-                <div class="box-main">
-                  <p>{{item.firstName + ' ' + item.lastName}} <span style="margin-left: 30px;">{{item.gender}}</span></p>
-                  <p>
-                    <span>Ngày sinh: <span>{{item.DayOfBirth}}</span></span>
-                    <span style="margin-left: 30px;">Lớp: <span>{{item.className}}</span></span>
-                  </p>
-                </div>
-              </div>
-
             </div>
           </div>
-        </div>
-      </ng-container>
+        </ng-container>
+      </div>
 
-      <button class="btn btn-danger" (click)="viewMore()">Xem thêm</button>
+      <div class="mx-auto text-center" *ngIf="initialArrStudents.length > pageSize && pageIndex < totalPage">
+        <button class="my-btn btn-view-more" (click)="viewMore()">Xem thêm</button>
+      </div>
+
+      <p class="text-no-data" *ngIf="initialArrStudents.length == 0">Không có dữ liệu hiển thị.</p>
 
     </div>
     <!-- end content -->
